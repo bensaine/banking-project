@@ -77,7 +77,7 @@ public class Account implements IAccount {
     }
     
     public int getAccountCount() {
-        return this.counter;
+        return Account.counter;
     }
     
     public ArrayList<Transaction> getTransactions() {
