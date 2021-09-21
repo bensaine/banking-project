@@ -12,7 +12,7 @@ import java.util.ArrayList;
 public class Bank implements IBank {
     private String bankNumber;
     private String address;
-    ArrayList<Client> clientList = new ArrayList<>();
+    private ArrayList<Client> clientList = new ArrayList<>();
     
     public Bank(String bankNumber, String address) {
         this.bankNumber = bankNumber;
@@ -28,12 +28,14 @@ public class Bank implements IBank {
     }
 
     public void displayClientList() {
-        System.out.println("Clients for Bank #"+bankNumber+":");
-        clientList.forEach((client) -> {System.out.println(client.toString());});
+        System.out.println("Clients for Bank #"+this.bankNumber+":");
+        System.out.println(this.clientList);
+        //possible future solution: clientList.forEach((client) -> {System.out.println(client.toString());});
     }
 
     public Client getClient(int id) {
-        return clientList.stream().filter(client -> client.getId() == (id)).findFirst().orElse(null);
+        //possible future solution: return this.clientList.stream().filter(client -> client.getId() == (id)).findFirst().orElse(null);
+        return null;
     }
 
     public Account getClientAccount(int clientId, int accountNumber) {

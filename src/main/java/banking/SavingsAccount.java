@@ -10,5 +10,5 @@ package banking;
  * @author Administrator
  */
 public class SavingsAccount extends Account {
-    
+    //to be implemented
 }

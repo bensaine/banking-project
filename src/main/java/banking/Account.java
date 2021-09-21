@@ -14,46 +14,50 @@ import java.util.ArrayList;
  */
 public class Account implements IAccount {
     
-    private int accountNumber;
-    private double balance;
-    private Client owner;
-    ArrayList<Transaction> transactionList = new ArrayList<>();
+    protected int accountNumber;
+    protected double balance;
+    protected Client owner;
+    protected static int counter = 0;
+    protected ArrayList<Transaction> transactionList = new ArrayList<>();
 
     public Account(int accountNumber, Client owner) {
-        this.accountNumber = accountNumber;
+        Account.counter++;
+        this.accountNumber = Account.counter;
         this.owner = owner;
+        this.balance = 0;
     }
 
     public int getAccountNumber() {
-        return accountNumber;
+        return this.accountNumber;
     }
 
     public double deposit(double d) {
         this.balance += d;
         Transaction newDeposit = new Transaction(TransactionType.DEPOSIT, d);
-        transactionList.add(newDeposit);
+        this.transactionList.add(newDeposit);
         return this.balance;
     }
 
     public void displayAllTransactions() {
-        System.out.println("Transactions for Account #"+accountNumber+":");
-        transactionList.forEach((transaction) -> {System.out.println(transaction.toString());});
+        System.out.println("Transactions for Account #"+this.accountNumber+":");
+        //possible future solution: this.transactionList.forEach((transaction) -> {System.out.println(transaction.toString());});
+        System.out.println(this.transactionList);
     }
 
     public ArrayList<Transaction> getTransactions() {
-        return transactionList;
+        return this.transactionList;
     }
 
     public double withdrawal(double w) {
         this.balance -= w;
         Transaction newWithdrawal = new Transaction(TransactionType.WITHDRAWAL, w);
-        transactionList.add(newWithdrawal);
+        this.transactionList.add(newWithdrawal);
         return this.balance;
     }
 
     @Override
     public String toString() {
-        return "Account #"+accountNumber+" with balance of $"+balance;
+        return "Account #"+this.accountNumber+" with balance of $"+this.balance;
     }
 
 }

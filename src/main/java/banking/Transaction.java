@@ -21,6 +21,6 @@ public class Transaction implements ITransaction {
     
     @Override
     public String toString() {
-        return type+" of $"+amount;
+        return this.type+" of $"+this.amount;
     }
 }
