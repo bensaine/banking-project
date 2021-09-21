@@ -23,4 +23,20 @@ public class Transaction implements ITransaction {
     public String toString() {
         return this.type+" of $"+this.amount;
     }
+    
+    public TransactionType getTransactionType() {
+        return this.type;
+    }
+    
+    public void setTransactionType(TransactionType newType) {
+        this.type = newType;
+    }
+    
+    public double getAmount() {
+        return this.amount;
+    }
+    
+    public void setAmount(double newAmount) {
+        this.amount = newAmount;
+    }
 }

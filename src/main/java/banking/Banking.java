@@ -11,6 +11,6 @@ package banking;
  */
 public class Banking {
     public static void main(String[] args) {
-        Bank downtownBank = new Bank("73636", "Downtown Bank");
+        Bank downtownBank = new Bank("73636", "290 Domingo St.");
     }
 }

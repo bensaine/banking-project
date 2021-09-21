@@ -27,10 +27,6 @@ public class Account implements IAccount {
         this.balance = 0;
     }
 
-    public int getAccountNumber() {
-        return this.accountNumber;
-    }
-
     public double deposit(double d) {
         this.balance += d;
         Transaction newDeposit = new Transaction(TransactionType.DEPOSIT, d);
@@ -44,10 +40,6 @@ public class Account implements IAccount {
         System.out.println(this.transactionList);
     }
 
-    public ArrayList<Transaction> getTransactions() {
-        return this.transactionList;
-    }
-
     public double withdrawal(double w) {
         this.balance -= w;
         Transaction newWithdrawal = new Transaction(TransactionType.WITHDRAWAL, w);
@@ -59,5 +51,40 @@ public class Account implements IAccount {
     public String toString() {
         return "Account #"+this.accountNumber+" with balance of $"+this.balance;
     }
-
+    
+    public int getAccountNumber() {
+        return this.accountNumber;
+    }
+    
+    public void setAccountNumber(int newAccountNumber) {
+        this.accountNumber = newAccountNumber;
+    }
+    
+    public double getBalance() {
+        return this.balance;
+    }
+    
+    public void setBalance(double newBalance) {
+        this.balance = newBalance;
+    }
+    
+    public Client getOwner() {
+        return this.owner;
+    }
+    
+    public void setOwner(Client newOwner) {
+        this.owner = newOwner;
+    }
+    
+    public int getAccountCount() {
+        return this.counter;
+    }
+    
+    public ArrayList<Transaction> getTransactions() {
+        return this.transactionList;
+    }
+    
+    public void setTransactions(ArrayList<Transaction> newTransactionList) {
+        this.transactionList = newTransactionList;
+    }
 }
