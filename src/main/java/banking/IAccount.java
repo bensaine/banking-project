@@ -4,8 +4,6 @@
  * and open the template in the editor.
  */
 
-package banking;
-
 import java.util.ArrayList;
 
 public interface IAccount {

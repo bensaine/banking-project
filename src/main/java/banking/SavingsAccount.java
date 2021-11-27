@@ -3,12 +3,17 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package banking;
 
 /**
  *
  * @author Administrator
  */
 public class SavingsAccount extends Account {
-    //to be implemented
+    public SavingsAccount() {
+        super();
+    }
+
+    public SavingsAccount(Client owner) {
+        super(owner);
+    }
 }

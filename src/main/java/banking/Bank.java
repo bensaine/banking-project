@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package banking;
+
 import java.util.ArrayList;
 /**
  *
@@ -34,8 +34,7 @@ public class Bank implements IBank {
     }
 
     public Client getClient(int id) {
-        //possible future solution: return this.clientList.stream().filter(client -> client.getId() == (id)).findFirst().orElse(null);
-        return null;
+        return this.clientList.stream().filter(client -> client.getId() == (id)).findFirst().orElse(null);
     }
 
     public Account getClientAccount(int clientId, int accountNumber) {

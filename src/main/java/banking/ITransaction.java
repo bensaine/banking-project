@@ -4,15 +4,12 @@
  * and open the template in the editor.
  */
 
-package banking;
-
 /**
  *
  * @author raphaelr
  */
 public interface ITransaction {
-    
-    enum TransactionType {WITHDRAWAL, DEPOSIT};
+
     /**
      * return the string that you want to output when printing the object
      */

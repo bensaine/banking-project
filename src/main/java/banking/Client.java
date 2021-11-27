@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package banking;
 
 import java.util.ArrayList;
 
@@ -27,6 +26,7 @@ public class Client implements IClient {
     }
 
     public void addAccount(Account newAccount) {
+        newAccount.setOwner(this);
         this.accountList.add(newAccount);
     }
 

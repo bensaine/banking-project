@@ -3,9 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package banking;
 
-import banking.Transaction.TransactionType;
 import java.util.ArrayList;
 
 /**
@@ -20,7 +18,13 @@ public class Account implements IAccount {
     protected static int counter = 0;
     protected ArrayList<Transaction> transactionList = new ArrayList<>();
 
-    public Account(int accountNumber, Client owner) {
+    public Account() {
+        Account.counter++;
+        this.accountNumber = Account.counter;
+        this.balance = 0;
+    }
+
+    public Account(Client owner) {
         Account.counter++;
         this.accountNumber = Account.counter;
         this.owner = owner;
@@ -29,7 +33,7 @@ public class Account implements IAccount {
 
     public double deposit(double d) {
         this.balance += d;
-        Transaction newDeposit = new Transaction(TransactionType.DEPOSIT, d);
+        Transaction newDeposit = new Transaction(Transaction.TransactionType.DEPOSIT, d);
         this.transactionList.add(newDeposit);
         return this.balance;
     }
@@ -42,7 +46,7 @@ public class Account implements IAccount {
 
     public double withdrawal(double w) {
         this.balance -= w;
-        Transaction newWithdrawal = new Transaction(TransactionType.WITHDRAWAL, w);
+        Transaction newWithdrawal = new Transaction(Transaction.TransactionType.WITHDRAWAL, w);
         this.transactionList.add(newWithdrawal);
         return this.balance;
     }
