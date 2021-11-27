@@ -10,10 +10,10 @@
  */
 public class CheckingAccount extends Account {
     public CheckingAccount() {
-        super();
+        super(AccountType.CHECKING);
     }
 
     public CheckingAccount(Client owner) {
-        super(owner);
+        super(owner, AccountType.CHECKING);
     }
 }

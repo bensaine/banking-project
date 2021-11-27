@@ -9,7 +9,8 @@
  * @author Administrator
  */
 public class Transaction implements ITransaction {
-    public static enum TransactionType {WITHDRAWAL, DEPOSIT};
+    public enum TransactionType {WITHDRAWAL, DEPOSIT}
+
     private TransactionType type;
     private double amount;
     

@@ -11,23 +11,27 @@ import java.util.ArrayList;
  * @author Administrator
  */
 public class Account implements IAccount {
-    
+    public enum AccountType {CHECKING, SAVINGS}
+
     protected int accountNumber;
     protected double balance;
     protected Client owner;
     protected static int counter = 0;
+    protected AccountType type;
     protected ArrayList<Transaction> transactionList = new ArrayList<>();
 
-    public Account() {
+    public Account(AccountType type) {
         Account.counter++;
         this.accountNumber = Account.counter;
+        this.type = type;
         this.balance = 0;
     }
 
-    public Account(Client owner) {
+    public Account(Client owner, AccountType type) {
         Account.counter++;
         this.accountNumber = Account.counter;
         this.owner = owner;
+        this.type = type;
         this.balance = 0;
     }
 
@@ -39,9 +43,7 @@ public class Account implements IAccount {
     }
 
     public void displayAllTransactions() {
-        System.out.println("Transactions for Account #"+this.accountNumber+":");
-        //possible future solution: this.transactionList.forEach((transaction) -> {System.out.println(transaction.toString());});
-        System.out.println(this.transactionList);
+        transactionList.forEach(System.out::println);
     }
 
     public double withdrawal(double w) {
@@ -53,7 +55,7 @@ public class Account implements IAccount {
 
     @Override
     public String toString() {
-        return "Account #"+this.accountNumber+" with balance of $"+this.balance;
+        return this.type+"("+this.accountNumber+") $"+this.balance;
     }
     
     public int getAccountNumber() {

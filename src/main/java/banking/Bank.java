@@ -28,9 +28,7 @@ public class Bank implements IBank {
     }
 
     public void displayClientList() {
-        System.out.println("Clients for Bank #"+this.bankNumber+":");
-        System.out.println(this.clientList);
-        //possible future solution: clientList.forEach((client) -> {System.out.println(client.toString());});
+        clientList.forEach(System.out::println);
     }
 
     public Client getClient(int id) {

@@ -31,19 +31,16 @@ public class Client implements IClient {
     }
 
     public void displayAccounts() {
-        System.out.println("Accounts for Client #"+this.id+":");
-        //possible solution: this.accountList.forEach((account) -> {System.out.println(account.toString());});
-        System.out.println(this.accountList);
+        accountList.forEach(System.out::println);
     }
 
     public Account getAccount(int accountNumber) {
-        //possible future solution return this.accountList.stream().filter(account -> account.getAccountNumber() == (accountNumber)).findFirst().orElse(null);
-        return null;
+        return this.accountList.stream().filter(account -> account.getAccountNumber() == (accountNumber)).findFirst().orElse(null);
     }
 
     @Override
     public String toString() {
-        return "Client #"+this.id+": "+this.firstName+" "+this.lastName;
+        return "("+this.id+") "+this.lastName+", "+this.firstName;
     }
     
     public int getId() {

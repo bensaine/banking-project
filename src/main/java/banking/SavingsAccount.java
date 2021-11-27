@@ -10,10 +10,10 @@
  */
 public class SavingsAccount extends Account {
     public SavingsAccount() {
-        super();
+        super(AccountType.SAVINGS);
     }
 
     public SavingsAccount(Client owner) {
-        super(owner);
+        super(owner, AccountType.SAVINGS);
     }
 }

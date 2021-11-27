@@ -1,55 +1,81 @@
-
-
-        import java.util.Scanner;
+import java.sql.SQLOutput;
+import java.util.Scanner;
 
 /**
- *
  * @author Administrator
  */
-        public class UserInputManager implements IUserInputManager{
+public class UserInputManager implements IUserInputManager {
 
-        public UserInputManager() {
-        }
+    public UserInputManager() {
+    }
 
-        @Override
-        public int retrieveAccountNumber() {
-        return 0;
-        }
-
-        @Override
-        public Account retrieveAccountType() {
-        return null;
-        }
-
-        @Override
-        public int retrieveClientId() {
-        System.out.println("Please Enter your ID");
+    @Override
+    public int retrieveAccountNumber() {
         Scanner sc = new Scanner(System.in);
-        int clientID = sc.nextInt();
-        return clientID;
-        }
+        System.out.println("Please input the account number.");
+        return sc.nextInt();
+    }
 
-        @Override
-        public Client retrieveClientInfo() {
-            System.out.println("Welcome to Big Dick's Bank");
-            Scanner sc = new Scanner(System.in);
-            System.out.println("Enter your first Name");
-            String firstName = sc.nextLine();
-            System.out.println("Enter your first Name");
-            String lastName = sc.nextLine();
-            Client newclient = new Client(firstName, lastName);
-            System.out.println("Greetings: "+ newclient);
-            return newclient;
-        }
+    @Override
+    public Account retrieveAccountType() {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("""
+                Please input an account type.
+                ➊ Checking;
+                ➋ Savings.""");
+        int type = sc.nextInt();
+        Account account = null;
+        if (type == 1) account = new CheckingAccount();
+        else if (type == 2) account = new SavingsAccount();
+        else System.err.println("An error occurred. Invalid account type.");
+        return account;
+    }
 
-        @Override
-        public double retrieveTransactionAmount() {
-        return 0.0;
-        }
+    @Override
+    public int retrieveClientId() {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Please enter the client ID.");
+        return sc.nextInt();
+    }
 
-        @Override
-        public int retrieveUserOption() {
-        return 0;
-        }
+    @Override
+    public Client retrieveClientInfo() {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Please enter the client's first name.");
+        String firstName = sc.nextLine();
+        System.out.println("Please enter the client's last name.");
+        String lastName = sc.nextLine();
+        return new Client(firstName, lastName);
+    }
 
-        }
+    @Override
+    public double retrieveTransactionAmount() {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Please input the transaction amount.");
+        return sc.nextDouble();
+    }
+
+    @Override
+    public int retrieveUserOption() {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("""
+                How can we help you today?
+                ➊ Add a new client;
+                ➋ Create a new account;
+                ➌ Make a deposit;
+                ➍ Make a withdrawal;
+                ➎ List account transactions;
+                ➏ List clients;
+                ➐ List client accounts.""");
+        return sc.nextInt();
+    }
+
+    public int retrieveExitAction() {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("""
+                Would you like to:
+                ➊ Return to main menu;
+                ➋ Exit.""");
+        return sc.nextInt();
+    }
+}
