@@ -1,15 +1,5 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 import java.util.ArrayList;
 
-/**
- *
- * @author Administrator
- */
 public class Account implements IAccount {
     public enum AccountType {CHECKING, SAVINGS}
 
@@ -17,7 +7,7 @@ public class Account implements IAccount {
     protected double balance;
     protected Client owner;
     protected static int counter = 0;
-    protected AccountType type;
+    protected final AccountType type;
     protected ArrayList<Transaction> transactionList = new ArrayList<>();
 
     public Account(AccountType type) {

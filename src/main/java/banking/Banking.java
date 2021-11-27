@@ -1,148 +1,105 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-import java.util.ArrayList;
-
-/**
- *
- * @author Administrator
- */
 public class Banking {
+    private static UserInputManager uIM;
+
     public static void main(String[] args) {
+        uIM = new UserInputManager();
         Bank bank = new Bank("73636", "290 Domingo St.");
         bankActions(bank);
     }
 
     private static void bankActions(Bank bank) {
-        UserInputManager userInputManager = new UserInputManager();
-        int clientId, accountId = 0;
-        double amount = 0.00;
-        Client client = null;
-        Account account = null;
-        Transaction transaction = null;
-        System.out.println("Welcome to Bank #"+bank.getBankNumber()+"!");
-        switch (userInputManager.retrieveUserOption()) {
-            case 1 -> {
-                client = userInputManager.retrieveClientInfo();
-                if (client == null) {
-                    System.err.println("An error occurred. Invalid client.");
-                    break;
-                }
-                bank.addClient(client);
-                System.out.println("Client created successfully: " + client);
-            }
-            case 2 -> {
-                clientId = userInputManager.retrieveClientId();
-                client = bank.getClient(clientId);
-                if (client == null) {
-                    System.err.println("An error occurred. Invalid client ID.");
-                    break;
-                }
-                account = userInputManager.retrieveAccountType();
-                if (account == null) {
-                    System.err.println("An error occurred. Invalid account type.");
-                    break;
-                }
-                account.setOwner(client);
-                client.addAccount(account);
-                System.out.println("Account created successfully: " + account);
-            }
-            case 3 -> {
-                account = getAccountSequence(bank, userInputManager);
-                if (account == null) break;
-                amount = userInputManager.retrieveTransactionAmount();
-                if (amount <= 0) {
-                    System.err.println("An error occurred. Invalid amount.");
-                    break;
-                }
-                account.deposit(amount);
-                System.out.println("Deposit successful: " + account);
-            }
-            case 4 -> {
-                account = getAccountSequence(bank, userInputManager);
-                if (account == null) break;
-                amount = userInputManager.retrieveTransactionAmount();
-                if (amount <= 0) {
-                    System.err.println("An error occurred. Invalid amount.");
-                    break;
-                }
-                account.withdrawal(amount);
-                System.out.println("Withdrawal successful: " + account);
-            }
-            case 5 -> {
-                account = getAccountSequence(bank, userInputManager);
-                if (account == null) break;
-                account.displayAllTransactions();
-                System.out.println(account);
-            }
-            case 6 -> {
-                clientId = userInputManager.retrieveClientId();
-                client = bank.getClient(clientId);
-                if (client == null) {
-                    System.err.println("An error occurred. Invalid client ID.");
-                    break;
-                }
-                System.out.println("List of current clients:");
-                bank.displayClientList();
-            }
-            case 7 -> {
-                clientId = userInputManager.retrieveClientId();
-                client = bank.getClient(clientId);
-                if (client == null) {
-                    System.err.println("An error occurred. Invalid client ID.");
-                    break;
-                }
-                System.out.println("Accounts for " + client);
-                bank.displayClientAccounts(clientId);
-            }
-            default -> System.err.println("An error occurred. A1ction does not exist.");
+        System.out.println("\u001B[31;40m+-------------------------+\n" +
+                "| Welcome to Bank #"+bank.getBankNumber()+"! |\n" +
+                "+-------------------------+\n");
+        switch (uIM.retrieveUserOption()) {
+            case 1 -> createClientSequence(bank);
+            case 2 -> createAccountSequence(bank);
+            case 3 -> createTransactionSequence(bank, Transaction.TransactionType.DEPOSIT);
+            case 4 -> createTransactionSequence(bank, Transaction.TransactionType.WITHDRAWAL);
+            case 5 -> listTransactionsSequence(bank);
+            case 6 -> listClientsSequence(bank);
+            case 7 -> listAccountsSequence(bank);
+            default -> System.err.println("An error occurred. Action does not exist.");
         }
-        if (userInputManager.retrieveExitAction() != 2) {
+        if (uIM.retrieveExitAction() != 2) {
             bankActions(bank);
+        } else {
+            System.out.println("\u001B[31mExiting Bank #"+bank.getBankNumber()+"... \u001B[33mHave a nice day!");
         }
-        System.out.println("Exiting Bank #"+bank.getBankNumber()+"... Have a nice day!");
-
-
     }
 
-    private static Account getAccountSequence(Bank bank, UserInputManager userInputManager) {
-        int clientId;
-        Client client;
-        int accountId;
-        Account account;
-        clientId = userInputManager.retrieveClientId();
-        client = bank.getClient(clientId);
+    private static void createClientSequence(Bank bank) {
+        Client client = uIM.retrieveClientInfo();
         if (client == null) {
-            System.err.println("An error occurred. Invalid client ID.");
-            return null;
+            System.err.println("An error occurred. Invalid client.");
+            return;
         }
-        accountId = userInputManager.retrieveAccountNumber();
-        account = client.getAccount(accountId);
+        bank.addClient(client);
+        System.out.println("\u001B[35mClient created successfully: " + client);
+    }
+
+    private static void createAccountSequence(Bank bank) {
+        Client client = getClientSequence(bank);
+        if (client == null) return;
+        Account account = uIM.retrieveAccountType();
         if (account == null) {
-            System.err.println("An error occurred. Invalid account number.");
-            return null;
+            System.err.println("An error occurred. Invalid account type.");
+            return;
         }
+        account.setOwner(client);
+        client.addAccount(account);
+        System.out.println("\u001B[35mAccount created successfully for "+client+": " + account);
+    }
+
+    private static void createTransactionSequence(Bank bank, Transaction.TransactionType type) {
+        Client client = getClientSequence(bank);
+        if (client == null) return;
+        Account account = getAccountSequence(client);
+        if (account == null) return;
+        double amount = uIM.retrieveTransactionAmount();
+        if (amount <= 0) {
+            System.err.println("An error occurred. Invalid amount.");
+            return;
+        }
+        if (type == Transaction.TransactionType.DEPOSIT) account.deposit(amount);
+        else if (type == Transaction.TransactionType.WITHDRAWAL) account.withdrawal(amount);
+        System.out.println("\u001B[35m"+type+" successful: " + account);
+    }
+
+    private static void listTransactionsSequence(Bank bank) {
+        Client client = getClientSequence(bank);
+        if (client == null) return;
+        Account account = getAccountSequence(client);
+        if (account == null) return;
+        System.out.print("\u001B[35m");
+        account.displayAllTransactions();
+        System.out.print("\u001B[34m");
+        System.out.println(account);
+    }
+
+    private static void listClientsSequence(Bank bank) {
+        System.out.println("\u001B[35mList of current clients:\u001B[34m");
+        bank.displayClientList();
+    }
+
+    private static void listAccountsSequence(Bank bank) {
+        Client client = getClientSequence(bank);
+        if (client == null) return;
+        System.out.println("\u001B[35mAccounts for " + client + "\u001B[34m");
+        bank.displayClientAccounts(client.getId());
+    }
+
+    private static Client getClientSequence(Bank bank) {
+        int clientId = uIM.retrieveClientId();
+        Client client = bank.getClient(clientId);
+        if (client == null) System.err.println("An error occurred. Invalid client ID.");
+        return client;
+    }
+
+    private static Account getAccountSequence(Client client) {
+        int accountId = uIM.retrieveAccountNumber();
+        Account account = client.getAccount(accountId);
+        if (account == null) System.err.println("An error occurred. Invalid account number.");
         return account;
     }
-
-    private void getAccountSequence() {
-
-    }
-
-    private void createAccount() {
-
-    }
-
-    private void makeWithdrawal() {
-
-    }
-
-    private void makeDeposit() {
-
-    }
-
-
 }
