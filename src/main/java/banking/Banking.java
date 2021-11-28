@@ -4,13 +4,13 @@ public class Banking {
     public static void main(String[] args) {
         uIM = new UserInputManager();
         Bank bank = new Bank("73636", "290 Domingo St.");
+        System.out.println("\u001B[31;40m+-------------------------+\n" +
+                "| Welcome to Bank #"+bank.getBankNumber()+"! |\n" +
+                "+-------------------------+\n");
         bankActions(bank);
     }
 
     private static void bankActions(Bank bank) {
-        System.out.println("\u001B[31;40m+-------------------------+\n" +
-                "| Welcome to Bank #"+bank.getBankNumber()+"! |\n" +
-                "+-------------------------+\n");
         switch (uIM.retrieveUserOption()) {
             case 1 -> createClientSequence(bank);
             case 2 -> createAccountSequence(bank);
@@ -21,11 +21,7 @@ public class Banking {
             case 7 -> listAccountsSequence(bank);
             default -> System.err.println("An error occurred. Action does not exist.");
         }
-        if (uIM.retrieveExitAction() != 2) {
-            bankActions(bank);
-        } else {
-            System.out.println("\u001B[31mExiting Bank #"+bank.getBankNumber()+"... \u001B[33mHave a nice day!");
-        }
+        exitSequence(bank);
     }
 
     private static void createClientSequence(Bank bank) {
@@ -101,5 +97,10 @@ public class Banking {
         Account account = client.getAccount(accountId);
         if (account == null) System.err.println("An error occurred. Invalid account number.");
         return account;
+    }
+
+    private static void exitSequence(Bank bank) {
+        if (uIM.retrieveExitAction() != 2) bankActions(bank);
+        else System.out.println("\u001B[31mExiting Bank #"+bank.getBankNumber()+"... \u001B[33mHave a nice day!");
     }
 }
