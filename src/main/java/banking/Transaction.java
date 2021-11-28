@@ -1,3 +1,4 @@
+//package banking;
 public class Transaction implements ITransaction {
     public enum TransactionType {WITHDRAWAL, DEPOSIT}
 

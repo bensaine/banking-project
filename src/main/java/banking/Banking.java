@@ -1,3 +1,4 @@
+//package banking;
 public class Banking {
     private static UserInputManager uIM;
 
@@ -10,6 +11,11 @@ public class Banking {
         bankActions(bank);
     }
 
+    //add methods
+    //unused methods
+    //scanner everytime
+    //correction method
+    //uIM
     private static void bankActions(Bank bank) {
         switch (uIM.retrieveUserOption()) {
             case 1 -> createClientSequence(bank);
@@ -27,7 +33,7 @@ public class Banking {
     private static void createClientSequence(Bank bank) {
         Client client = uIM.retrieveClientInfo();
         if (client == null) {
-            System.err.println("An error occurred. Invalid client.");
+            System.err.println("An error occurred. Invalid client information.");
             return;
         }
         bank.addClient(client);
@@ -69,19 +75,19 @@ public class Banking {
         if (account == null) return;
         System.out.print("\u001B[35m");
         account.displayAllTransactions();
-        System.out.print("\u001B[34m");
+        System.out.print("\u001B[36m");
         System.out.println(account);
     }
 
     private static void listClientsSequence(Bank bank) {
-        System.out.println("\u001B[35mList of current clients:\u001B[34m");
+        System.out.println("\u001B[35mList of current clients:\u001B[36m");
         bank.displayClientList();
     }
 
     private static void listAccountsSequence(Bank bank) {
         Client client = getClientSequence(bank);
         if (client == null) return;
-        System.out.println("\u001B[35mAccounts for " + client + "\u001B[34m");
+        System.out.println("\u001B[35mAccounts for " + client + "\u001B[36m");
         bank.displayClientAccounts(client.getId());
     }
 

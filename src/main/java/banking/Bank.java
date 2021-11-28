@@ -1,8 +1,6 @@
+//package banking;
 import java.util.ArrayList;
-/**
- *
- * @author Administrator
- */
+
 public class Bank implements IBank {
     private String bankNumber;
     private String address;
