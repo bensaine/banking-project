@@ -22,11 +22,14 @@ public class Client implements IClient {
     }
 
     public void displayAccounts() {
-        accountList.forEach(System.out::println);
+        for(Account a: accountList) System.out.println(a);
     }
 
     public Account getAccount(int accountNumber) {
-        return this.accountList.stream().filter(account -> account.getAccountNumber() == (accountNumber)).findFirst().orElse(null);
+        for(Account a: this.accountList) {
+            if (a.getAccountNumber() == accountNumber) return a;
+        }
+        return null;
     }
 
     @Override

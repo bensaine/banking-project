@@ -8,7 +8,7 @@ public class Account implements IAccount {
     protected double balance;
     protected Client owner;
     protected static int counter = 0;
-    protected final AccountType type;
+    protected AccountType type;
     protected ArrayList<Transaction> transactionList = new ArrayList<>();
 
     public Account(AccountType type) {
@@ -34,7 +34,7 @@ public class Account implements IAccount {
     }
 
     public void displayAllTransactions() {
-        transactionList.forEach(System.out::println);
+        for(Transaction t: transactionList) System.out.println(t);
     }
 
     public double withdrawal(double w) {
@@ -76,7 +76,15 @@ public class Account implements IAccount {
     public int getAccountCount() {
         return Account.counter;
     }
-    
+
+    public AccountType getType() {
+        return this.type;
+    }
+
+    public void setType(AccountType type) {
+        this.type = type;
+    }
+
     public ArrayList<Transaction> getTransactions() {
         return this.transactionList;
     }

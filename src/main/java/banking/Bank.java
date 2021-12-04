@@ -20,15 +20,21 @@ public class Bank implements IBank {
     }
 
     public void displayClientList() {
-        clientList.forEach(System.out::println);
+        for(Client c: clientList) System.out.println(c);
     }
 
     public Client getClient(int id) {
-        return this.clientList.stream().filter(client -> client.getId() == (id)).findFirst().orElse(null);
+        for(Client c: this.clientList) {
+            if (c.getId() == id) return c;
+        }
+        return null;
     }
 
     public Account getClientAccount(int clientId, int accountNumber) {
-        return getClient(clientId).getAccount(accountNumber);
+        Account account = null;
+        Client client = getClient(clientId);
+        if (client != null) account = client.getAccount(accountNumber);
+        return account;
     }
     
     public String getBankNumber() {
