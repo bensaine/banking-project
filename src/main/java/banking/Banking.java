@@ -3,8 +3,8 @@ public class Banking {
     public static void main(String[] args) {
         Bank bank = new Bank("734-36", "290 Domingo St.");
         System.out.println("\u001B[31m+--------------------------+\n" +
-                "| Welcome to Bank #"+bank.getBankNumber()+"! |\n" +
-                "+--------------------------+\n");
+                "\u001B[31m| Welcome to Bank #"+bank.getBankNumber()+"! |\n" +
+                "\u001B[31m+--------------------------+\n");
         bankActions(bank);
     }
 
@@ -26,7 +26,7 @@ public class Banking {
     private static void createClientSequence(Bank bank, UserInputManager uIM) {
         Client client = uIM.retrieveClientInfo();
         if (client == null) {
-            System.err.println("An error occurred. Invalid client information.\nPlease try again.");
+            System.out.println("\u001B[31mAn error occurred. Invalid client information.\nPlease try again.\n");
             createClientSequence(bank, uIM);
             return;
         }
@@ -38,13 +38,13 @@ public class Banking {
     private static void createAccountSequence(Bank bank, UserInputManager uIM) {
         Client client = getClientSequence(bank, uIM);
         if (client == null) {
-            System.err.println("An error occurred. Invalid client ID.\nPlease try again.");
+            System.out.println("\u001B[31mAn error occurred. Invalid client ID.\nPlease try again.\n");
             createAccountSequence(bank, uIM);
             return;
         }
         Account account = uIM.retrieveAccountType();
         if (account == null) {
-            System.err.println("An error occurred. Invalid account type.\nPlease try again.");
+            System.out.println("\u001B[31mAn error occurred. Invalid account type.\nPlease try again.\n");
             createAccountSequence(bank, uIM);
             return;
         }
@@ -56,13 +56,13 @@ public class Banking {
     private static void createTransactionSequence(Bank bank, UserInputManager uIM, Transaction.TransactionType type) {
         Account account = getAccountSequence(bank, uIM);
         if (account == null) {
-            System.err.println("An error occurred. Invalid account number or client ID.\nPlease try again.");
+            System.out.println("\u001B[31mAn error occurred. Invalid account number or client ID.\nPlease try again.\n");
             createTransactionSequence(bank, uIM, type);
             return;
         }
         double amount = uIM.retrieveTransactionAmount();
         if (amount <= 0) {
-            System.err.println("An error occurred. Invalid amount.\nPlease try again.");
+            System.out.println("\u001B[31mAn error occurred. Invalid amount.\nPlease try again.\n");
             createTransactionSequence(bank, uIM, type);
             return;
         }
@@ -75,7 +75,7 @@ public class Banking {
     private static void listTransactionsSequence(Bank bank, UserInputManager uIM) {
         Account account = getAccountSequence(bank, uIM);
         if (account == null) {
-            System.err.println("An error occurred. Invalid account number or client ID.\nPlease try again.");
+            System.out.println("\u001B[31mAn error occurred. Invalid account number or client ID.\nPlease try again.\n");
             listTransactionsSequence(bank, uIM);
             return;
         }
@@ -95,7 +95,7 @@ public class Banking {
     private static void listAccountsSequence(Bank bank, UserInputManager uIM) {
         Client client = getClientSequence(bank, uIM);
         if (client == null) {
-            System.err.println("An error occurred. Invalid client ID.\nPlease try again.");
+            System.out.println("\u001B[31mAn error occurred. Invalid client ID.\nPlease try again.\n");
             listAccountsSequence(bank, uIM);
             return;
         }
