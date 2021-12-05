@@ -22,7 +22,7 @@ public class Client implements IClient {
     }
 
     public void displayAccounts() {
-        for(Account a: accountList) System.out.println(a);
+        for(Account a: this.accountList) System.out.println(a);
     }
 
     public Account getAccount(int accountNumber) {
@@ -30,11 +30,6 @@ public class Client implements IClient {
             if (a.getAccountNumber() == accountNumber) return a;
         }
         return null;
-    }
-
-    @Override
-    public String toString() {
-        return "("+this.id+") "+this.lastName+", "+this.firstName;
     }
     
     public int getId() {
@@ -71,5 +66,10 @@ public class Client implements IClient {
     
     public void setAccounts(ArrayList<Account> newAccountList) {
         this.accountList = newAccountList;
+    }
+
+    @Override
+    public String toString() {
+        return "("+this.id+") "+this.lastName+", "+this.firstName;
     }
 }

@@ -20,7 +20,7 @@ public class Bank implements IBank {
     }
 
     public void displayClientList() {
-        for(Client c: clientList) System.out.println(c);
+        for(Client c: this.clientList) System.out.println(c);
     }
 
     public Client getClient(int id) {

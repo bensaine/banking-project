@@ -10,11 +10,6 @@ public class Transaction implements ITransaction {
         this.amount = amount;
     }
     
-    @Override
-    public String toString() {
-        return this.type+" of $"+this.amount;
-    }
-    
     public TransactionType getTransactionType() {
         return this.type;
     }
@@ -29,5 +24,10 @@ public class Transaction implements ITransaction {
     
     public void setAmount(double newAmount) {
         this.amount = newAmount;
+    }
+
+    @Override
+    public String toString() {
+        return this.type+" of $"+this.amount;
     }
 }

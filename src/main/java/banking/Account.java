@@ -34,7 +34,7 @@ public class Account implements IAccount {
     }
 
     public void displayAllTransactions() {
-        for(Transaction t: transactionList) System.out.println(t);
+        for(Transaction t: this.transactionList) System.out.println(t);
     }
 
     public double withdrawal(double w) {
@@ -42,11 +42,6 @@ public class Account implements IAccount {
         Transaction newWithdrawal = new Transaction(Transaction.TransactionType.WITHDRAWAL, w);
         this.transactionList.add(newWithdrawal);
         return this.balance;
-    }
-
-    @Override
-    public String toString() {
-        return this.type+"("+this.accountNumber+") $"+this.balance;
     }
     
     public int getAccountNumber() {
@@ -91,5 +86,10 @@ public class Account implements IAccount {
     
     public void setTransactions(ArrayList<Transaction> newTransactionList) {
         this.transactionList = newTransactionList;
+    }
+
+    @Override
+    public String toString() {
+        return this.type+"("+this.accountNumber+") $"+this.balance;
     }
 }
