@@ -16,7 +16,7 @@ public class Bank implements IBank {
     }
 
     public void displayClientAccounts(int clientId) {
-        getClient(clientId).displayAccounts();
+        this.getClient(clientId).displayAccounts();
     }
 
     public void displayClientList() {
@@ -32,7 +32,7 @@ public class Bank implements IBank {
 
     public Account getClientAccount(int clientId, int accountNumber) {
         Account account = null;
-        Client client = getClient(clientId);
+        Client client = this.getClient(clientId);
         if (client != null) account = client.getAccount(accountNumber);
         return account;
     }
